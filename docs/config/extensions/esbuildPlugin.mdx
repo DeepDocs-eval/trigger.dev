@@ -22,8 +22,7 @@ export default defineConfig({
           project: process.env.SENTRY_PROJECT,
           authToken: process.env.SENTRY_AUTH_TOKEN,
         }),
-        // optional - only runs during the deploy command, and adds the plugin to the end of the list of plugins
-        { placement: "last", target: "deploy" }
+// optional: custom options for the plugin
       ),
     ],
   },

@@ -29,14 +29,14 @@ In Hookdeck, create a new [destination](https://hookdeck.com/docs/destinations) 
 ### 2. Add a transformation
 
 Create a [transformation](https://hookdeck.com/docs/transformations) to wrap the webhook body in the `payload` field that Trigger.dev expects:
+Create a [transformation](https://hookdeck.com/docs/transformations) only if you need to modify the body. Trigger.dev task trigger expects the request body directly as the task payload:
 
 ```javascript
 addHandler("transform", (request, context) => {
-  request.body = { payload: { ...request.body } };
+  // No wrapping needed
   return request;
 });
 ```
-
 ### 3. Create a connection
 
 Create a [connection](https://hookdeck.com/docs/connections) that links your source (where webhooks come from) to the destination and transformation you created above.

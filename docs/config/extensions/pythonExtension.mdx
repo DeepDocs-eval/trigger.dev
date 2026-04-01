@@ -145,7 +145,7 @@ export const myStreamingScript = task({
     const result = python.stream.runScript("./python/my_script.py", ["hello", "world"]);
 
     // result is an async iterable/readable stream
-    for await (const chunk of streamingResult) {
+    for await (const chunk of result) {
       console.log(chunk);
     }
   },

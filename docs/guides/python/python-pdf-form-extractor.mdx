@@ -26,7 +26,7 @@ This demo showcases how to use Trigger.dev with Python to extract structured for
 
 <Card
   title="View the project on GitHub"
-  icon="GitHub"
+  href="https://github.com/triggerdotdev/examples/tree/main/python-pdf-form-extractor/"
   href="https://github.com/triggerdotdev/examples/edit/main/python-pdf-form-extractor/"
 >
   Click here to view the full code for this project in our examples repository on GitHub. You can
@@ -69,15 +69,15 @@ export default defineConfig({
 
 ### Task code
 
-This task uses the `python.runScript` method to run the `image-processing.py` script with the given image URL as an argument. You can adjust the image processing parameters in the payload, with options such as height, width, quality, output format, etc.
+This task uses the `python.runScript` method to run the `extract-pdf-form.py` script with the given PDF URL as an argument.
 
 ```ts src/trigger/pythonPdfTask.ts
 import { task } from "@trigger.dev/sdk";
-import { python } from "@trigger.dev/python";
+
 
 export const processPdfForm = task({
   id: "process-pdf-form",
-  run: async (payload: { pdfUrl: string }, io: any) => {
+  run: async (payload: { pdfUrl: string }, { python }) => {
     const { pdfUrl } = payload;
     const args = [pdfUrl];
 

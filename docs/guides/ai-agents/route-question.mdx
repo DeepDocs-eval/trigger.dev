@@ -17,11 +17,10 @@ In this example, we'll create a workflow that routes a question to a different A
 **This task:**
 
 - Uses `generateText` from [Vercel's AI SDK](https://sdk.vercel.ai/docs/introduction) to interact with OpenAI models
-- Uses `experimental_telemetry` in the source verification and historical analysis tasks to provide LLM logs
+- Uses `experimental_telemetry` to provide LLM logs on the Run page in the dashboard
 - Routes questions using a lightweight model (`o1-mini`) to classify complexity
-- Directs simple questions to `gpt-4o` and complex ones to `gpt-o3-mini`
+- Directs simple questions to `gpt-4o` and complex ones to `o1-mini`
 - Returns both the answer and metadata about the routing decision
-
 ```typescript
 import { openai } from "@ai-sdk/openai";
 import { task } from "@trigger.dev/sdk";

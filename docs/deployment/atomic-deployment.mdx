@@ -12,7 +12,7 @@ Atomic deploys achieve synchronization by deploying your tasks to Trigger.dev wi
 
 1. **Deploy Tasks to Trigger.dev**: Use the Trigger.dev CLI to deploy your tasks with the `--skip-promotion` flag. This creates a new task version without making it the default.
 2. **Capture the Deployment Version**: The CLI outputs the version of the deployed tasks, which you’ll use in the next step.
-3. **Deploy Your Application**: Deploy your application (e.g., to Vercel), setting an environment variable like `TRIGGER_VERSION` to the captured task version.
+3. **Deploy Your Application**: Deploy your application (e.g., to Vercel), setting an environment variable like `TRIGGER_DEPLOYMENT_VERSION` to the captured task version.
 
 ## Vercel CLI & GitHub Actions
 
@@ -49,7 +49,7 @@ jobs:
           npx trigger.dev@latest deploy --skip-promotion
 
       - name: Deploy to Vercel
-        run: npx vercel --yes --prod -e TRIGGER_VERSION=$TRIGGER_VERSION --token $VERCEL_TOKEN
+        run: npx vercel --yes --prod -e TRIGGER_DEPLOYMENT_VERSION=$TRIGGER_VERSION --token $VERCEL_TOKEN
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           TRIGGER_VERSION: ${{ steps.deploy-trigger.outputs.deploymentVersion }}
@@ -67,9 +67,9 @@ jobs:
   - The step’s id: `deploy-trigger` allows us to capture the deployment version in the output (deploymentVersion).
 
 - Deploy to Vercel:
-  - The `npx vercel` command deploys the application, setting the `TRIGGER_VERSION` environment variable to the task version from the previous step.
+  - The `npx vercel` command deploys the application, setting the `TRIGGER_DEPLOYMENT_VERSION` environment variable to the task version from the previous step.
   - The --prod flag ensures a production deployment, and -e passes the environment variable.
-  - The `@trigger.dev/sdk` automatically uses the `TRIGGER_VERSION` environment variable to trigger the correct version of the tasks.
+  - The `@trigger.dev/sdk` automatically uses the `TRIGGER_DEPLOYMENT_VERSION` environment variable to trigger the correct version of the tasks.
 
 For this workflow to work, you need to set up the following secrets in your GitHub repository:
 

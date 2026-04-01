@@ -32,7 +32,7 @@ export const generateContent = task({
     // Generate text
     const textResult = await openai.chat.completions.create({
       model: "gpt-4o",
-      messages: generateTextPrompt(theme, description),
+      messages: [{ role: "user", content: generateTextPrompt(theme, description) }],
     });
 
     if (!textResult.choices[0]) {
@@ -50,7 +50,7 @@ export const generateContent = task({
     }
 
     return {
-      text: textResult.choices[0],
+      text: textResult.choices[0].message.content,
       image: imageResult.data[0].url,
     };
   },
