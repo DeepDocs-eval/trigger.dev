@@ -72,14 +72,13 @@ This task uses the `python.runScript` method to run the `markdown-converter.py` 
 
 ```ts src/trigger/convertToMarkdown.ts
 import { task } from "@trigger.dev/sdk";
-import { python } from "@trigger.dev/python";
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
 
 export const convertToMarkdown = task({
   id: "convert-to-markdown",
-  run: async (payload: { url: string }) => {
+  run: async (payload: { url: string }, { python }) => {
     const { url } = payload;
 
     // STEP 1: Create temporary file with unique name

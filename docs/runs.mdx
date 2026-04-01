@@ -281,7 +281,7 @@ If you have just triggered a run, you can pass the entire response object to `re
 import { runs, tasks } from "@trigger.dev/sdk";
 import type { myTask } from "./trigger/myTask";
 
-const response = await tasks.trigger<typeof myTask>({ foo: "bar" });
+const response = await tasks.trigger<typeof myTask>("my-task", { foo: "bar" });
 const run = await runs.retrieve(response);
 
 console.log(run.payload.foo); // string

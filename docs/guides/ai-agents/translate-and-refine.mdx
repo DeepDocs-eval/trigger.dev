@@ -125,7 +125,20 @@ export const translateAndRefine = task({
       },
     });
 
-    // If approved, return the final result
+    // Evaluate the translation
+    const evaluation = await generateText({
+      model: openai("o1-mini"),
+      messages: [
+        {
+          role: "system",
+          content: `You are an expert evaluator of translations into ${payload.targetLanguage}. Focus on accuracy, style, and natural flow.\n\n${payload.feedback ? `Previous feedback: \"${payload.feedback}\"` : "No previous feedback."}\n\nTranslation to evaluate: \"${translation.text}\"`\n\n${rejectionCount === 0 ? "This is the first attempt. Find aspects to improve even if good." : 'Either respond with exactly "APPROVED" or provide only critical issues that must be fixed.'}`,
+        },
+      ],
+      experimental_telemetry: {
+        isEnabled: true,
+        functionId: "translation-evaluator",
+      },
+    });
     if (evaluation.text.trim() === "APPROVED") {
       return {
         finalTranslation: translation.text,

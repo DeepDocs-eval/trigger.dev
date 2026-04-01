@@ -304,11 +304,12 @@ export const sendEmail = task({
   id: "trigger-welcome-email",
   run: async (payload: { to: string; name: string; subject: string; from?: string }) => {
     try {
+    try {
+      logger.info("Sending email using React.email and Resend", {
         to: payload.to,
       });
 
       const { data, error } = await resend.emails.send({
-        // The from address needs to be a verified email address
         from: payload.from || "email@acmeinc.com", // Default from address
         to: payload.to,
         subject: payload.subject,
